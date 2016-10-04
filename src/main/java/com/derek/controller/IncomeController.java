@@ -1,10 +1,15 @@
 package com.derek.controller;
 
+import com.derek.dao.DaysDAO;
+import com.derek.dao.DaysDAOImpl;
+import com.derek.model.Days;
 import com.derek.model.Greeting;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -13,12 +18,15 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class IncomeController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
+     private DaysDAO daysDAO;
 
-    @RequestMapping("/income")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return new Greeting(counter.incrementAndGet(),
-                String.format(template, name));
+    @Autowired
+    public IncomeController(DaysDAOImpl dao) {
+        this.daysDAO = dao;
+    }
+
+    @RequestMapping("/days")
+    public List<Days> getDays() {
+        return daysDAO.list();
     }
 }
