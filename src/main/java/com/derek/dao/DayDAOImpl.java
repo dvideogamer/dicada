@@ -2,7 +2,7 @@ package com.derek.dao;
 
 import com.derek.model.Day;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class DayDAOImpl implements DayDAO {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
     public void save(Day p) {
