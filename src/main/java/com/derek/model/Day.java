@@ -10,13 +10,6 @@ import java.io.Serializable;
 @Table(name="days")
 public class Day implements Serializable {
 
-    protected Day() {}
-
-    public Day(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     @Id
     @Column(name="day_id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)

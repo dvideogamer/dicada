@@ -1,12 +1,14 @@
 package com.derek.controller;
 
-import com.derek.dao.DayDAO;
 import com.derek.model.Day;
+import com.derek.model.OneTimeIncome;
+import com.derek.model.RecurringIncome;
+import com.derek.repository.DayRepository;
+import com.derek.repository.OneTimeIncomeRepository;
+import com.derek.repository.RecurringIncomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Created by Derek on 10/3/2016.
@@ -15,10 +17,18 @@ import java.util.List;
 public class IncomeController {
 
     @Autowired
-    DayDAO dao;
+    OneTimeIncomeRepository oneTimeIncomeRepository;
 
-    @RequestMapping("/income")
-    public List<Day> getDays() {
-        return dao.list();
+    @Autowired
+    RecurringIncomeRepository recurringIncomeRepository;
+
+    @RequestMapping("/oneTimeIncomes")
+    public Iterable<OneTimeIncome> oneTimeIncomes() {
+        return oneTimeIncomeRepository.findAll();
+    }
+
+    @RequestMapping("/recurringIncomes")
+    public Iterable<RecurringIncome> recurringIncomes() {
+        return recurringIncomeRepository.findAll();
     }
 }
