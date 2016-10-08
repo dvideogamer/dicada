@@ -15,7 +15,7 @@ public class DayController {
     @Autowired
     DayRepository repository;
 
-    @RequestMapping("/dayes")
+    @RequestMapping("/days")
     public Iterable<Day> getDays() {
         return repository.findAll();
     }
