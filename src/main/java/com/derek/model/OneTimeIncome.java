@@ -1,8 +1,11 @@
 package com.derek.model;
 
 import com.derek.serializers.CurrencySerializer;
+import com.derek.serializers.DateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +31,7 @@ public class OneTimeIncome implements Serializable{
     private double amount;
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
+    @JsonDeserialize(using = DateDeserializer.class)
     @Column(name="effective_date")
     private Date effectiveDate;
 
