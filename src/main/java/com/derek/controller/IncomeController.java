@@ -43,4 +43,19 @@ public class IncomeController {
     public void update(@RequestBody OneTimeIncome oneTimeIncome){
         oneTimeIncomeRepository.save(oneTimeIncome);
     }
+
+    @RequestMapping(value = "/recurringIncome", method = RequestMethod.POST)
+    public long save(@RequestBody RecurringIncome recurringIncome){
+        return recurringIncomeRepository.save(recurringIncome).getId();
+    }
+
+    @RequestMapping(value = "/recurringIncome/{recurringIncomeId}", method = RequestMethod.DELETE)
+    public void deleteRecurringIncome(@PathVariable long recurringIncomeId){
+        recurringIncomeRepository.delete(recurringIncomeId);
+    }
+
+    @RequestMapping(value = "/recurringIncome", method = RequestMethod.PUT)
+    public void update(@RequestBody RecurringIncome recurringIncome){
+        recurringIncomeRepository.save(recurringIncome);
+    }
 }

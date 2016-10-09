@@ -1,18 +1,29 @@
 package com.derek.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
+
+import static com.derek.model.Day.TABLE_NAME;
 
 /**
  * Created by Derek on 10/3/2016.
  */
 @Entity
-@Table(name="days")
-public class Day implements Serializable {
+@Table(name = TABLE_NAME)
+public class Day extends AbstractModel {
+
+    /** The ID database column name. */
+    public static final String FIELD_ID = "DAY_ID";
+
+    /** The database table name. */
+    public static final String TABLE_NAME = "DAYS";
+
+    /** serialVersionUID. */
+    private static final long serialVersionUID = 1726739056876541979L;
 
     @Id
-    @Column(name="day_id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @SequenceGenerator(name = TABLE_NAME + "_" + FIELD_ID + SEQUENCE, sequenceName = TABLE_NAME + "_" + FIELD_ID + SEQ)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = TABLE_NAME + "_" + FIELD_ID + SEQUENCE)
+    @Column(name = FIELD_ID)
     private long id;
 
     private String name;

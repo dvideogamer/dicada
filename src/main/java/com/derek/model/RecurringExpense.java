@@ -2,24 +2,40 @@ package com.derek.model;
 
 import com.derek.serializers.CurrencySerializer;
 import com.derek.serializers.DateDeserializer;
+import com.derek.serializers.IdSetSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
+
+import static com.derek.model.RecurringExpense.TABLE_NAME;
 
 /**
  * Created by Derek on 10/8/2016.
  */
 @Entity
-@Table(name="recurring_expense")
-public class RecurringExpense {
+@Table(name = TABLE_NAME)
+public class RecurringExpense extends AbstractModel {
+
+    /** The ID database column name. */
+    public static final String FIELD_ID = "RECURRING_EXPENSE_ID";
+
+    /** The database table name. */
+    public static final String TABLE_NAME = "RECURRING_EXPENSE";
+
+    /** The database link table name. */
+    public static final String DAYS_LINK_TABLE = "RECURRING_EXPENSE_DAYS";
+
+    /** serialVersionUID. */
+    private static final long serialVersionUID = 1726752801270541288L;
 
     @Id
-    @SequenceGenerator(name="recurring_expense_id_sequence", sequenceName="recurring_expense_id_seq")
-    @GeneratedValue(strategy=GenerationType.AUTO, generator="recurring_expense_id_sequence")
-    @Column(name="recurring_expense_id")
+    @SequenceGenerator(name = FIELD_ID + SEQUENCE, sequenceName = FIELD_ID + SEQ)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = FIELD_ID + SEQUENCE)
+    @Column(name = FIELD_ID)
     private long id;
 
     private String name;
@@ -27,15 +43,24 @@ public class RecurringExpense {
     @JsonSerialize(using = CurrencySerializer.class)
     private double amount;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT)
     @JsonDeserialize(using = DateDeserializer.class)
-    @Column(name="start_date")
+    @Column(name = START_DATE)
     private Date startDate;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT)
     @JsonDeserialize(using = DateDeserializer.class)
-    @Column(name="end_date")
+    @Column(name = END_DATE)
     private Date endDate;
+
+    @OneToMany
+    @JsonSerialize(using = IdSetSerializer.class)
+    @JoinTable(
+            name = DAYS_LINK_TABLE,
+            joinColumns = @JoinColumn(name = FIELD_ID),
+            inverseJoinColumns = @JoinColumn(name = Day.FIELD_ID)
+    )
+    private Set<Day> days;
 
     public long getId() {
         return id;
@@ -75,5 +100,13 @@ public class RecurringExpense {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Set<Day> getDays() {
+        return days;
+    }
+
+    public void setDays(Set<Day> days) {
+        this.days = days;
     }
 }

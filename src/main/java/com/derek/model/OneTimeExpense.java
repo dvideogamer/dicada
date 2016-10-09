@@ -1,6 +1,5 @@
 package com.derek.model;
 
-
 import com.derek.serializers.CurrencySerializer;
 import com.derek.serializers.DateDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,20 +7,30 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
+
+import static com.derek.model.OneTimeExpense.TABLE_NAME;
 
 /**
  * Created by Derek on 10/8/2016.
  */
 @Entity
-@Table(name="one_time_expense")
-public class OneTimeExpense implements Serializable{
+@Table(name =  TABLE_NAME)
+public class OneTimeExpense extends AbstractModel {
+
+    /** The ID database column name. */
+    public static final String FIELD_ID = "ONE_TIME_EXPENSE_ID";
+
+    /** The database table name. */
+    public static final String TABLE_NAME = "ONE_TIME_EXPENSE";
+
+    /** serialVersionUID. */
+    private static final long serialVersionUID = 1726762856876541980L;
 
     @Id
-    @SequenceGenerator(name="one_time_expense_id_sequence", sequenceName="one_time_expense_id_seq")
-    @GeneratedValue(strategy=GenerationType.AUTO, generator="one_time_expense_id_sequence")
-    @Column(name="one_time_expense_id")
+    @SequenceGenerator(name = FIELD_ID + SEQUENCE, sequenceName = FIELD_ID + SEQ)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = FIELD_ID + SEQUENCE)
+    @Column(name = FIELD_ID)
     private long id;
 
     private String name;
@@ -29,9 +38,9 @@ public class OneTimeExpense implements Serializable{
     @JsonSerialize(using = CurrencySerializer.class)
     private double amount;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT)
     @JsonDeserialize(using = DateDeserializer.class)
-    @Column(name="effective_date")
+    @Column(name = EFFECTIVE_DATE)
     private Date effectiveDate;
 
     public long getId() {
