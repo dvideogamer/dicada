@@ -34,7 +34,7 @@ public class ExpenseController {
         return oneTimeExpenseRepository.save(oneTimeExpense).getId();
     }
 
-    @RequestMapping(value = "/oneTimeExpense/{oneTimeIncomeId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/oneTimeExpense/{oneTimeExpenseId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable long oneTimeExpenseId){
         oneTimeExpenseRepository.delete(oneTimeExpenseId);
     }
