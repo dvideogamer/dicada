@@ -15,9 +15,11 @@ import java.util.Date;
 @Table(name="one_time_income")
 public class OneTimeIncome implements Serializable{
 
+    //AUTO necessary for postgres
     @Id
+    @SequenceGenerator(name="one_time_income_id_sequence", sequenceName="one_time_income_id_seq")
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="one_time_income_id_sequence")
     @Column(name="one_time_income_id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private String name;

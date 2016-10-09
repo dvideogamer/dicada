@@ -17,8 +17,9 @@ import java.util.Date;
 public class OneTimeExpense implements Serializable{
 
     @Id
+    @SequenceGenerator(name="one_time_expense_id_sequence", sequenceName="one_time_expense_id_seq")
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="one_time_expense_id_sequence")
     @Column(name="one_time_expense_id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private String name;

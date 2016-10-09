@@ -5,8 +5,7 @@ import com.derek.model.RecurringExpense;
 import com.derek.repository.OneTimeExpenseRepository;
 import com.derek.repository.RecurringExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Derek on 10/3/2016.
@@ -20,13 +19,28 @@ public class ExpenseController {
     @Autowired
     RecurringExpenseRepository recurringExpenseRepository;
 
-    @RequestMapping("/oneTimeExpenses")
+    @RequestMapping("/oneTimeExpense")
     public Iterable<OneTimeExpense> oneTimeExpenses() {
         return oneTimeExpenseRepository.findAll();
     }
 
-    @RequestMapping("/recurringExpenses")
+    @RequestMapping("/recurringExpense")
     public Iterable<RecurringExpense> recurringExpenses() {
         return recurringExpenseRepository.findAll();
+    }
+
+    @RequestMapping(value = "/oneTimeExpense", method = RequestMethod.POST)
+    public long save(@RequestBody OneTimeExpense oneTimeExpense){
+        return oneTimeExpenseRepository.save(oneTimeExpense).getId();
+    }
+
+    @RequestMapping(value = "/oneTimeExpense/{oneTimeIncomeId}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long oneTimeExpenseId){
+        oneTimeExpenseRepository.delete(oneTimeExpenseId);
+    }
+
+    @RequestMapping(value = "/oneTimeExpense", method = RequestMethod.PUT)
+    public void update(@RequestBody OneTimeExpense oneTimeExpense){
+        oneTimeExpenseRepository.save(oneTimeExpense);
     }
 }

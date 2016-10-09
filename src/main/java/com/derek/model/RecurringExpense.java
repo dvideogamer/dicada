@@ -15,8 +15,9 @@ import java.util.Date;
 public class RecurringExpense {
 
     @Id
+    @SequenceGenerator(name="recurring_expense_id_sequence", sequenceName="recurring_expense_id_seq")
+    @GeneratedValue(strategy=GenerationType.AUTO, generator="recurring_expense_id_sequence")
     @Column(name="recurring_expense_id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
     private String name;

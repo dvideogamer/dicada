@@ -5,8 +5,7 @@ import com.derek.model.RecurringIncome;
 import com.derek.repository.OneTimeIncomeRepository;
 import com.derek.repository.RecurringIncomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Derek on 10/3/2016.
@@ -20,13 +19,28 @@ public class IncomeController {
     @Autowired
     RecurringIncomeRepository recurringIncomeRepository;
 
-    @RequestMapping("/oneTimeIncomes")
+    @RequestMapping("/oneTimeIncome")
     public Iterable<OneTimeIncome> oneTimeIncomes() {
         return oneTimeIncomeRepository.findAll();
     }
 
-    @RequestMapping("/recurringIncomes")
+    @RequestMapping("/recurringIncome")
     public Iterable<RecurringIncome> recurringIncomes() {
         return recurringIncomeRepository.findAll();
+    }
+
+    @RequestMapping(value = "/oneTimeIncome", method = RequestMethod.POST)
+    public long save(@RequestBody OneTimeIncome oneTimeIncome){
+        return oneTimeIncomeRepository.save(oneTimeIncome).getId();
+    }
+
+    @RequestMapping(value = "/oneTimeIncome/{oneTimeIncomeId}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable long oneTimeIncomeId){
+        oneTimeIncomeRepository.delete(oneTimeIncomeId);
+    }
+
+    @RequestMapping(value = "/oneTimeIncome", method = RequestMethod.PUT)
+    public void update(@RequestBody OneTimeIncome oneTimeIncome){
+        oneTimeIncomeRepository.save(oneTimeIncome);
     }
 }
