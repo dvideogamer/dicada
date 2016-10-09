@@ -1,9 +1,9 @@
 package com.derek.model;
 
 
-
-import org.postgresql.util.PGmoney;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.derek.serializers.CurrencySerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,9 +23,10 @@ public class OneTimeExpense implements Serializable{
 
     private String name;
 
+    @JsonSerialize(using = CurrencySerializer.class)
     private double amount;
 
-    @DateTimeFormat
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
     @Column(name="effective_date")
     private Date effectiveDate;
 

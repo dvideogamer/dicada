@@ -1,9 +1,7 @@
 package com.derek.controller;
 
-import com.derek.model.Day;
 import com.derek.model.OneTimeIncome;
 import com.derek.model.RecurringIncome;
-import com.derek.repository.DayRepository;
 import com.derek.repository.OneTimeIncomeRepository;
 import com.derek.repository.RecurringIncomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

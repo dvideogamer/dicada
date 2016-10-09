@@ -1,6 +1,8 @@
 package com.derek.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.derek.serializers.CurrencySerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,13 +21,14 @@ public class RecurringExpense {
 
     private String name;
 
+    @JsonSerialize(using = CurrencySerializer.class)
     private double amount;
 
-    @DateTimeFormat
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
     @Column(name="start_date")
     private Date startDate;
 
-    @DateTimeFormat
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
     @Column(name="end_date")
     private Date endDate;
 
