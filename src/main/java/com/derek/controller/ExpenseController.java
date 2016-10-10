@@ -43,4 +43,18 @@ public class ExpenseController {
     public void update(@RequestBody OneTimeExpense oneTimeExpense){
         oneTimeExpenseRepository.save(oneTimeExpense);
     }
-}
+
+    @RequestMapping(value = "/recurringExpense", method = RequestMethod.POST)
+    public long save(@RequestBody RecurringExpense recurringExpense){
+        return recurringExpenseRepository.save(recurringExpense).getId();
+    }
+
+    @RequestMapping(value = "/recurringExpense/{recurringExpenseId}", method = RequestMethod.DELETE)
+    public void deleteRecurringExpense(@PathVariable long recurringExpenseId){
+        recurringExpenseRepository.delete(recurringExpenseId);
+    }
+
+    @RequestMapping(value = "/recurringExpense", method = RequestMethod.PUT)
+    public void update(@RequestBody RecurringExpense recurringExpense){
+        recurringExpenseRepository.save(recurringExpense);
+    }}

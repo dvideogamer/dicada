@@ -1,6 +1,9 @@
 package com.derek.model;
 
-import com.derek.serializers.*;
+import com.derek.serializers.CurrencySerializer;
+import com.derek.serializers.DateDeserializer;
+import com.derek.serializers.DayIdSetDeserializer;
+import com.derek.serializers.IdSetSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
