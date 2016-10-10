@@ -1,8 +1,6 @@
 package com.derek.model;
 
-import com.derek.serializers.CurrencySerializer;
-import com.derek.serializers.DateDeserializer;
-import com.derek.serializers.IdSetSerializer;
+import com.derek.serializers.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -55,6 +53,7 @@ public class RecurringExpense extends AbstractModel {
 
     @OneToMany
     @JsonSerialize(using = IdSetSerializer.class)
+    @JsonDeserialize(using = DayIdSetDeserializer.class)
     @JoinTable(
             name = DAYS_LINK_TABLE,
             joinColumns = @JoinColumn(name = FIELD_ID),
