@@ -1,0 +1,15 @@
+<!doctype html>
+<html ng-app = "app">
+<head>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="module/income/income.module.js"></script>
+    <script src="module/app/app.module.js"></script>
+    <script src="module/income/income.controller.js"></script>
+    <script src="module/income/income.service.js"></script>
+</head>
+<body>
+    <div ng-include="'module/home/landing.html'"></div>
+    <div ui-view></div>
+</body>
+</html>
